@@ -2,7 +2,7 @@ CC=cc
 
 CFLAGS=-Wall -O2 -pipe -march=native
 
-TARGET=bin/program
+TARGET=bin/FizzBuzz
 
 SRC=src/main.c
 
