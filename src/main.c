@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 void 
-fizzbuzz(int n, FILE *stream) 
+fizzbuzz(const int n, FILE *stream) 
 {
     // 無効な引数チェック
     if (n <= 0) 
@@ -12,6 +12,7 @@ fizzbuzz(int n, FILE *stream)
     }
 
     // メモリ割り当てチェック
+    const int results_size __attribute__((unused)) = n;
     char *results = (char *)malloc(n * sizeof(*results));
     if (results == NULL) 
     {
@@ -50,7 +51,7 @@ fizzbuzz(int n, FILE *stream)
 int 
 testFizzBuzz() 
 {
-    FILE *devNull = fopen("/dev/null", "w");
+    FILE *const devNull = fopen("/dev/null", "w");
     //fopenのエラーチェック
     if (devNull == NULL) 
     {
