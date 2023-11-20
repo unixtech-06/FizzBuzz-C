@@ -12,7 +12,7 @@ fizzbuzz(int n, FILE *stream)
     }
 
     // メモリ割り当てチェック
-    char *results = (char *)malloc(n * sizeof(results));
+    char *results = (char *)malloc(n * sizeof(*results));
     if (results == NULL) 
     {
         fprintf(stderr, "fizzbuzz: メモリの割り当てに失敗しました。\n");
@@ -32,7 +32,13 @@ fizzbuzz(int n, FILE *stream)
     if (stream != NULL) 
     {
         for (int i = 0; i < n; i++) {
-            fprintf(stream, "%c", results[i]);
+            if (fprintf(stream, "%c", results[i]) < 0)
+	    {
+		    perror("fprintf");
+		    fprintf(stderr, "ファイルへの書き込みに失敗しました。");
+		    free(results);
+		    exit(EXIT_FAILURE);
+	    }
         }
         fprintf(stream, "\n");
     }
@@ -56,7 +62,7 @@ testFizzBuzz()
     fizzbuzz(15, devNull);
 
     //fcloseのエラーチェック
-    if (fclose(devNull)) 
+    if (fclose(devNull) != 0) 
     {
 	    perror("fclose");
 	    fprintf(stderr, "fcloseに失敗しました。");
