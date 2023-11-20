@@ -70,13 +70,13 @@ testFizzBuzz()
 	    return EXIT_FAILURE; //テスト失敗
     }
 
-    return 1; // テスト成功
+    return EXIT_SUCCESS; // テスト成功
 }
 
 int 
 main() 
 {
-    if (!testFizzBuzz()) 
+    if (!(testFizzBuzz() == EXIT_SUCCESS)) 
     {
         fprintf(stderr, "テストが失敗しました。プロセスを中断します。\n");
         exit(EXIT_FAILURE);
@@ -84,6 +84,6 @@ main()
 
     fizzbuzz(100, stdout);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
