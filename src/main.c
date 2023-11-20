@@ -45,19 +45,22 @@ int
 testFizzBuzz() 
 {
     FILE *devNull = fopen("/dev/null", "w");
+    //fopenのエラーチェック
     if (devNull == NULL) 
     {
+	perror("fopen");
         fprintf(stderr, "一時ファイルのオープンに失敗しました。\n");
         return EXIT_FAILURE; // テスト失敗
     }
 
     fizzbuzz(15, devNull);
 
+    //fcloseのエラーチェック
     if (fclose(devNull)) 
     {
 	    perror("fclose");
 	    fprintf(stderr, "fcloseに失敗しました。");
-	    return EXIT_FAILURE;
+	    return EXIT_FAILURE; //テスト失敗
     }
 
     return 1; // テスト成功
